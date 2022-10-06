@@ -1,0 +1,102 @@
+*:not(i) {
+    font-family: 'Lato'
+}
+
+body {
+    margin: 50px 100px;
+}
+
+.title-logo {
+    display: flex;
+    margin: auto;
+}
+
+#search-recipe {
+    width: 100%;
+    padding: 20px;
+    background-color: #e7e7e7;
+    border: none;
+    border-radius: 5px;
+    font-style: 18px;
+}
+
+nav {
+    margin: 20px 0;
+    display: flex;
+    gap: 20px;
+}
+
+#ingredients-btn {
+    background-color: #3282F7;
+}
+
+#machine-btn {
+    background-color: #68D9A4;
+}
+
+#tool-btn {
+    background-color: #ED6454;
+}
+
+.filter-btn {
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.filter-btn input {
+    color: white;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-weight: 900;
+}
+
+.filter-btn input::placeholder, .filter-btn i{
+    color: white;
+    font-weight: 900;
+}
+
+#recipe-list{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 23px;
+}
+
+.recipe-card{
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 calc(25% - 10px);
+    height: fit-content;
+    border-radius: 10px;
+    margin: 0;
+    overflow: hidden;
+}
+
+.recipe-card-picture{
+    background-color: #C7BEBE;
+    height: 150px;
+}
+
+.recipe-card-details{
+    padding: 20px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #E7E7E7;
+}
+.recipe-card-title{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 0.6vw;
+}
+.recipe-process{
+    display: flex;
+    flex-direction: row;
+}
+.recipe-process > *{
+    flex: 1 0 calc(50% - 10px);
+}
