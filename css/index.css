@@ -11,7 +11,7 @@ body {
     margin: auto;
 }
 
-.fa.fa-search{
+.fa.fa-search {
     position: absolute;
     right: 20px;
     top: 50%;
@@ -24,7 +24,7 @@ body {
     height: 32px;
 }
 
-.search-bar-container{
+.search-bar-container {
     display: block;
     position: relative;
 }
@@ -45,15 +45,113 @@ nav {
     gap: 20px;
 }
 
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.filter-item {
+    flex: 1 1 30%;
+    font-size: 18px;
+    line-height: 22px;
+    padding: 5px;
+    
+}
+.filter-text{
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    width: fit-content;
+}
+
+
+.dropdown-ingredients,
+.dropdown-ustensiles,
+.dropdown-appareils {
+    display: none;
+    position: absolute;
+    width: 667px;
+    max-height: 328px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    flex-wrap: wrap;
+    color: white;
+    border-radius: 0 0 5px 5px;
+}
+
+.dropdown-ingredients::-webkit-scrollbar,
+.dropdown-ustensiles::-webkit-scrollbar,
+.dropdown-appareils::-webkit-scrollbar {
+    display: none;
+}
+
+.dropdown-ingredients {
+    background-color: #3282F7;
+}
+
+.dropdown-ustensiles {
+    background-color: #ED6454;
+}
+
+.dropdown-appareils {
+    background-color: #68D9A4;
+}
+
 #ingredients-btn {
     background-color: #3282F7;
 }
 
-#machine-btn {
+.active-filter-list{
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.ingredient-filter-item {
+    background-color: #3282F7;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 37px;
+    font-size: 14px;
+}
+
+.appareil-filter-item {
+    color: white;
+    background-color: #68D9A4;
+    border-radius: 5px;
+    padding: 5px 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 37px;
+    font-size: 14px;
+}
+
+.ustensil-filter-item {
+    background-color: #ED6454;
+    color: white;
+    border-radius: 5px;
+    padding: 5px 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 37px;
+    font-size: 14px;
+}
+
+#appareils-btn {
     background-color: #68D9A4;
 }
 
-#tool-btn {
+#ustensiles-btn {
     background-color: #ED6454;
 }
 
@@ -66,6 +164,7 @@ nav {
     height: 69px;
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -77,10 +176,7 @@ nav {
     font-size: 18px;
     font-weight: bold;
     overflow: hidden;
-}
-
-.filter-btn:focus-within {
-    width: 223px;
+    width: 100%;
 }
 
 .filter-btn input::placeholder,
