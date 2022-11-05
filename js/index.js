@@ -54,7 +54,7 @@ function handleSearch() {
     const searchContent = document.querySelector("#search-recipe").value.split(" ")
     let searchRecipesArray = []
     currentlyDisplayedRecipes.forEach(recipe => {
-        if (searchContent.every((word, index) => (recipe.ingredients.includes(word)
+        if (searchContent.every((word) => (recipe.ingredients.includes(word)
             || recipe.description.includes(word)
             || recipe.name.includes(word)))) {
             searchRecipesArray.push(recipe)
