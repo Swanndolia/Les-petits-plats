@@ -5,6 +5,7 @@ const recipes = data.recipes;
 let filtersList = { ingredients: [], ustensiles: [], appareils: [] }
 let mappedList = { ingredients: [], ustensiles: [], appareils: [] }
 let activeFilterList = []
+let activeFilterListState = []
 let currentlyDisplayedRecipes = recipes;
 
 const recipeSection = document.querySelector("#recipe-list")
@@ -17,7 +18,7 @@ function displayRecipes(recipeList) {
         recipeSection.appendChild(factory.generateRecipeCard(recipe));
         populateFiltersAndMap(recipe.ingredients, recipe.ustensils, recipe.appliance, recipe)
     });
-    filtersList.generated = true
+    regenerateFilters()
 }
 
 const eventListenerList = [[document.querySelector(".ingredients-input"), "ingredients"], [document.querySelector(".appareils-input"), "appareils"], [document.querySelector(".ustensiles-input"), "ustensiles"]]
@@ -42,8 +43,7 @@ eventListenerList.forEach((element => {
 displayRecipes(recipes)
 
 function handleSearch() {
-    regenerateFilters()
-    if (document.querySelector("#search-recipe").value.length < 2) {
+    if (document.querySelector("#search-recipe").value.length < 3) {
         displayRecipes(recipes);
         if (activeFilterList.length != 0) {
             displayFilteredRecipes();
@@ -98,6 +98,7 @@ function displayActiveFilter(filterText, category) {
 function removeActiveFilter(filter, index) {
     filter.remove()
     activeFilterList.splice(index, 1)
+    activeFilterListState.splice(index, 1)
     if (document.querySelector("#search-recipe").value) {
         if (activeFilterList.length == 0) {
             currentlyDisplayedRecipes = recipes;
@@ -105,6 +106,7 @@ function removeActiveFilter(filter, index) {
         handleSearch()
         return
     }
+
     if (activeFilterList.length == 0) {
         displayRecipes(recipes)
         return
@@ -114,12 +116,16 @@ function removeActiveFilter(filter, index) {
 
 function addFiltersRecipes(filterName, filterType) {
     activeFilterList.push(mappedList[filterType][filterName])
+    activeFilterListState.push([filterType, filterName])
     displayFilteredRecipes()
 }
 
 function regenerateFilters() {
-    console.log(activeFilterList)
-    console.log(mappedList)
+    const tempActiveFilterList = []
+    activeFilterListState.forEach(filter => {
+        tempActiveFilterList.push(mappedList[filter[0]][filter[1]])
+    });
+    activeFilterList = tempActiveFilterList
 }
 
 function displayFilteredRecipes() {
