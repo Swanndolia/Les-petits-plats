@@ -54,15 +54,12 @@ function handleSearch() {
     const searchContent = document.querySelector("#search-recipe").value.split(" ")
     let searchRecipesArray = []
     currentlyDisplayedRecipes.forEach(recipe => {
-        searchContent.forEach(function (word, index) {
-            if (recipe.ingredients.includes(word)
-                || recipe.description.includes(word)
-                || recipe.name.includes(word)) {
-                if (index == searchContent.length - 1) {
-                    searchRecipesArray.push(recipe)
-                }
-            }
-        });
+        if (searchContent.every((word, index) => (recipe.ingredients.includes(word)
+            || recipe.description.includes(word)
+            || recipe.name.includes(word)))) {
+            searchRecipesArray.push(recipe)
+        }
+
     });
     displayRecipes(searchRecipesArray)
     console.log(`Execution time: ${performance.now() - start} ms`);
