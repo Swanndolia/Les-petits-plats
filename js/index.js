@@ -19,7 +19,6 @@ function displayRecipes(recipeList) {
         populateFiltersAndMap(recipe.ingredients, recipe.ustensils, recipe.appliance, recipe)
     });
     regenerateFilters()
-    filtersList.generated = true
 }
 
 const eventListenerList = [[document.querySelector(".ingredients-input"), "ingredients"], [document.querySelector(".appareils-input"), "appareils"], [document.querySelector(".ustensiles-input"), "ustensiles"]]
