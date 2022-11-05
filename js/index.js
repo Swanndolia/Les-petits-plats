@@ -2,19 +2,23 @@ import * as data from "./recipes.js";
 import * as factory from "./factory.js";
 
 const recipes = data.recipes;
-let filtersList = { ingredients: [], ustensiles: [], appareils: [], generated: false }
+let filtersList = { ingredients: [], ustensiles: [], appareils: [] }
 let mappedList = { ingredients: [], ustensiles: [], appareils: [] }
 let activeFilterList = []
+let activeFilterListState = []
+let currentlyDisplayedRecipes = recipes;
 
 const recipeSection = document.querySelector("#recipe-list")
 
 function displayRecipes(recipeList) {
     recipeSection.replaceChildren()
+    filtersList = { ingredients: [], ustensiles: [], appareils: [] }
+    mappedList = { ingredients: [], ustensiles: [], appareils: [] }
     recipeList.forEach(recipe => {
         recipeSection.appendChild(factory.generateRecipeCard(recipe));
-        if (filtersList.generated == false)
-            populateFiltersAndMap(recipe.ingredients, recipe.ustensils, recipe.appliance, recipe)
+        populateFiltersAndMap(recipe.ingredients, recipe.ustensils, recipe.appliance, recipe)
     });
+    regenerateFilters()
     filtersList.generated = true
 }
 
@@ -39,10 +43,36 @@ eventListenerList.forEach((element => {
 
 displayRecipes(recipes)
 
+function handleSearch() {
+    if (document.querySelector("#search-recipe").value.length < 3) {
+        displayRecipes(recipes);
+        if (activeFilterList.length != 0) {
+            displayFilteredRecipes();
+        }
+        return
+    }
+    const searchContent = document.querySelector("#search-recipe").value.split(" ")
+    let searchRecipesArray = []
+    currentlyDisplayedRecipes.forEach(recipe => {
+        searchContent.forEach(function (word, index) {
+            if (recipe.ingredients.includes(word)
+                || recipe.description.includes(word)
+                || recipe.name.includes(word)) {
+                if (index == searchContent.length - 1) {
+                    searchRecipesArray.push(recipe)
+                }
+            }
+        });
+    });
+    displayRecipes(searchRecipesArray)
+}
+
+window.handleSearch = handleSearch;
+
 function displayActiveFilter(filterText, category) {
     const activeFilter = document.createElement("span")
     const deleteIcon = document.createElement("i")
-    deleteIcon.classList.add("fa", "fa-times-circle-o", "fa-2xl" )
+    deleteIcon.classList.add("fa", "fa-times-circle-o", "fa-2xl")
     activeFilter.textContent = filterText
     activeFilter.appendChild(deleteIcon)
 
@@ -58,7 +88,7 @@ function displayActiveFilter(filterText, category) {
             break; //add cxolor to filters
     }
     activeFilter.addEventListener("click", () => {
-        removeActiveFilter(activeFilter,Array.from(activeFilter.parentElement.children).indexOf(activeFilter))
+        removeActiveFilter(activeFilter, Array.from(activeFilter.parentElement.children).indexOf(activeFilter))
     })
     document.querySelector(".active-filter-list").appendChild(activeFilter)
 }
@@ -66,6 +96,15 @@ function displayActiveFilter(filterText, category) {
 function removeActiveFilter(filter, index) {
     filter.remove()
     activeFilterList.splice(index, 1)
+    activeFilterListState.splice(index, 1)
+    if (document.querySelector("#search-recipe").value) {
+        if (activeFilterList.length == 0) {
+            currentlyDisplayedRecipes = recipes;
+        }
+        handleSearch()
+        return
+    }
+
     if (activeFilterList.length == 0) {
         displayRecipes(recipes)
         return
@@ -75,12 +114,22 @@ function removeActiveFilter(filter, index) {
 
 function addFiltersRecipes(filterName, filterType) {
     activeFilterList.push(mappedList[filterType][filterName])
+    activeFilterListState.push([filterType, filterName])
     displayFilteredRecipes()
 }
 
-function displayFilteredRecipes(){
+function regenerateFilters() {
+    const tempActiveFilterList = []
+    activeFilterListState.forEach(filter => {
+        tempActiveFilterList.push(mappedList[filter[0]][filter[1]])
+    });
+    activeFilterList = tempActiveFilterList
+}
+
+function displayFilteredRecipes() {
     const flattedList = activeFilterList.flat(1)
     const filteredData = flattedList.filter((a, index) => flattedList.indexOf(a) === index && flattedList.reduce((acc, b) => +(a === b) + acc, 0) === activeFilterList.length)
+    currentlyDisplayedRecipes = filteredData;
     displayRecipes(filteredData)
 }
 
