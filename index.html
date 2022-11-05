@@ -1,3 +1,5 @@
+
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>
@@ -11,7 +13,7 @@
 </head>
 
 <body>
-    <img class="title-logo" src="assets/logo.png" />
+    <img class="title-logo" src="assets/logo.png" alt="logo-les-petits-plats" />
     <span class="search-bar-container">
         <input placeholder="Rechercher une recette" id="search-recipe" oninput="handleSearch()"/>
         <i class="fa fa-search"></i>
@@ -19,19 +21,19 @@
     <aside class="active-filter-list"></aside>
     <nav class="filters">
         <div class="dropdown" onclick="handleFilterBtn('ingredients')">
-            <button id="ingredients-btn" class="filter-btn"><input class="ingredients-input"
+            <span id="ingredients-btn" class="filter-btn"><input class="ingredients-input"
                     oninput="handleFilterBtn('ingredients')" placeholder="Ingrédients" /> <i
-                    class="fa fa-chevron-down"></i></button>
+                    class="fa fa-chevron-down"></i></span>
             <div class="dropdown-ingredients"></div>
         </div>
-        <div class="dropdown" onclick="handleFilterBtn('appareils')"><button id="appareils-btn"
+        <div class="dropdown" onclick="handleFilterBtn('appareils')"><span id="appareils-btn"
                 class="filter-btn"><input placeholder="Appareils" class="appareils-input"
-                    oninput="handleFilterBtn('appareils')" /> <i class="fa fa-chevron-down"></i></button>
+                    oninput="handleFilterBtn('appareils')" /> <i class="fa fa-chevron-down"></i></span>
             <div class="dropdown-appareils"></div>
         </div>
-        <div class="dropdown" onclick="handleFilterBtn('ustensiles')"><button id="ustensiles-btn"
+        <div class="dropdown" onclick="handleFilterBtn('ustensiles')"><span id="ustensiles-btn"
                 class="filter-btn"><input placeholder="Ustensiles" class="ustensiles-input"
-                    oninput="handleFilterBtn('ustensiles')" /> <i class="fa fa-chevron-down"></i></button>
+                    oninput="handleFilterBtn('ustensiles')" /> <i class="fa fa-chevron-down"></i></span>
             <div class="dropdown-ustensiles"></div>
         </div>
     </nav>

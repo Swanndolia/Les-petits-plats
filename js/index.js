@@ -43,7 +43,7 @@ eventListenerList.forEach((element => {
 displayRecipes(recipes)
 
 function handleSearch() {
-    const start = performance.now()
+    const start = performance.now();
     if (document.querySelector("#search-recipe").value.length < 3) {
         displayRecipes(recipes);
         if (activeFilterList.length != 0) {
@@ -53,19 +53,25 @@ function handleSearch() {
     }
     const searchContent = document.querySelector("#search-recipe").value.split(" ")
     let searchRecipesArray = []
-    currentlyDisplayedRecipes.forEach(recipe => {
-        if (searchContent.every((word) => (recipe.ingredients.includes(word)
-            || recipe.description.includes(word)
-            || recipe.name.includes(word)))) {
-            searchRecipesArray.push(recipe)
+    for (const recipe in currentlyDisplayedRecipes) {
+        for (const word in searchContent) {
+            if (currentlyDisplayedRecipes[recipe].ingredients.includes(searchContent[word])
+                || currentlyDisplayedRecipes[recipe].description.includes(searchContent[word])
+                || currentlyDisplayedRecipes[recipe].name.includes(searchContent[word])) {
+                if (word == searchContent.length - 1) {
+                    searchRecipesArray.push(currentlyDisplayedRecipes[recipe])
+                }
+            } else {
+                break
+            }
         }
-
-    });
+    }
     displayRecipes(searchRecipesArray)
     console.log(`Execution time: ${performance.now() - start} ms`);
 }
 
 window.handleSearch = handleSearch;
+
 
 function displayActiveFilter(filterText, category) {
     const activeFilter = document.createElement("span")
