@@ -43,6 +43,7 @@ eventListenerList.forEach((element => {
 displayRecipes(recipes)
 
 function handleSearch() {
+    const start = performance.now()
     if (document.querySelector("#search-recipe").value.length < 3) {
         displayRecipes(recipes);
         if (activeFilterList.length != 0) {
@@ -64,6 +65,7 @@ function handleSearch() {
         });
     });
     displayRecipes(searchRecipesArray)
+    console.log(`Execution time: ${performance.now() - start} ms`);
 }
 
 window.handleSearch = handleSearch;
